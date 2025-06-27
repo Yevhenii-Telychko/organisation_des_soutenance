@@ -47,8 +47,8 @@
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Étudiant</a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="#">Liste des RDV</a></li>
-                                        <li><a class="dropdown-item" href="#">Prendre un RDV pour un projet</a></li>
+                                        <li><a class="dropdown-item" href="router.php?action=listeRDV">Liste des RDV</a></li>
+                                        <li><a class="dropdown-item" href="router.php?action=prendreRDVForm">Prendre un RDV pour un projet</a></li>
                                     </ul>
                                 </li>
                                 ';

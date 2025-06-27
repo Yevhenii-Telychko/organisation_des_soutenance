@@ -47,7 +47,7 @@ class ControllerConnexion
 
     public static function register()
     {
-        include 'config.php';
+
         $selectedRoles = $_POST['roles'];
 
         $roles = [
@@ -61,9 +61,11 @@ class ControllerConnexion
             header('Location: router.php?action=loginForm');
         } else {
             $error = "Erreur lors de l'inscription.";
+            include 'config.php';
             $view = $root . '/app/view/personne/error.php';
+            require($view);
         }
-        require($view);
+
     }
 
     public static function deconnexion()

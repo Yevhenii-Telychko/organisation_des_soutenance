@@ -1,6 +1,7 @@
 <?php
 require '../controller/Controller.php';
 require '../controller/ControllerConnexion.php';
+require '../controller/ControllerEtudiant.php';
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -25,8 +26,11 @@ switch ($action) {
     case "deconnexion":
         ControllerConnexion::$action();
         break;
-
-
+    case "listeRDV":
+    case "prendreRDVForm":
+    case "prendreRDVSubmit":
+        ControllerEtudiant::$action();
+        break;
     default:
         $action = "mainView";
         Controller::$action();
