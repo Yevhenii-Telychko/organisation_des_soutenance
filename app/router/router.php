@@ -1,6 +1,9 @@
 <?php
 require '../controller/Controller.php';
 require '../controller/ControllerConnexion.php';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 $query_string = $_SERVER['QUERY_STRING'];
 

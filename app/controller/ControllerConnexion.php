@@ -8,8 +8,8 @@ class ControllerConnexion
     public static function loginForm()
     {
         include 'config.php';
-        $vue = $root . '/app/view/personne/login.php';
-        require($vue);
+        $view = $root . '/app/view/personne/login.php';
+        require($view);
     }
 
     public static function login()
@@ -26,21 +26,28 @@ class ControllerConnexion
                 'responsable' => $user['role_responsable'],
                 'examinateur' => $user['role_examinateur']
             ];
-            include 'config.php';
-            $vue = $root . '/app/view/main_view.php';
-            require($vue);
+            require 'config.php';
+            $view = $root . '/app/view/main_view.php';
+            require($view);
+        } else {
+            $error = "Login ou mot de passe incorrect.";;
+            require 'config.php';
+            $view = $root . '/app/view/personne/error.php';
+            require($view);
         }
+
     }
 
     public static function registerForm()
     {
         include 'config.php';
-        $vue = $root . '/app/view/personne/register.php';
-        require($vue);
+        $view = $root . '/app/view/personne/register.php';
+        require($view);
     }
 
     public static function register()
     {
+        include 'config.php';
         $selectedRoles = $_POST['roles'];
 
         $roles = [
@@ -50,11 +57,13 @@ class ControllerConnexion
         ];
 
         $newUser = ModelPersonne::register($_POST['nom'], $_POST['prenom'], $_POST['login'], $_POST['password'], $roles);
-        if($newUser){
+        if ($newUser) {
             header('Location: router.php?action=loginForm');
-        }else{
+        } else {
             $error = "Erreur lors de l'inscription.";
+            $view = $root . '/app/view/personne/error.php';
         }
+        require($view);
     }
 
     public static function deconnexion()
@@ -66,7 +75,7 @@ class ControllerConnexion
         session_unset();
         session_destroy();
         include 'config.php';
-        $vue = $root . '/app/view/main_view.php';
-        require($vue);
+        $view = $root . '/app/view/main_view.php';
+        require($view);
     }
 }

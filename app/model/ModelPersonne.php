@@ -7,10 +7,15 @@ class ModelPersonne
 
     public static function checkLogin($login, $password)
     {
-        $database = Model::getInstance();
-        $stmt = $database->prepare("SELECT * FROM personne WHERE login = :login AND password = :password");
-        $stmt->execute(['login' => $login, 'password' => $password]);
-        return $stmt->fetch();
+        try{
+            $database = Model::getInstance();
+            $stmt = $database->prepare("SELECT * FROM personne WHERE login = :login AND password = :password");
+            $stmt->execute(['login' => $login, 'password' => $password]);
+            return $stmt->fetch();
+        }catch (PDOException $e){
+            return false;
+        }
+
     }
 
     public static function register($name, $surname, $login, $password, $roles)
