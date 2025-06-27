@@ -17,7 +17,9 @@ $args = $param;
 switch ($action) {
     case "loginForm":
     case "login":
-    case "deeconnexion":
+    case "registerForm":
+    case "register":
+    case "deconnexion":
         ControllerConnexion::$action();
         break;
 

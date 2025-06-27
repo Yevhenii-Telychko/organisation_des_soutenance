@@ -61,7 +61,7 @@
                                     <a class="nav-link" href="router.php?action=loginForm">Se connecter</a>
                                 </li>
                                 <li class="nav-item px-2">
-                                    <a class="nav-link" href="#">S’inscrire</a>
+                                    <a class="nav-link" href="router.php?action=registerForm">S’inscrire</a>
                                 </li>
                             </ul>
                             ';

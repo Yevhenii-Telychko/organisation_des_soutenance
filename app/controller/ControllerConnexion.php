@@ -32,8 +32,38 @@ class ControllerConnexion
         }
     }
 
+    public static function registerForm()
+    {
+        include 'config.php';
+        $vue = $root . '/app/view/personne/register.php';
+        require($vue);
+    }
+
+    public static function register()
+    {
+        $selectedRoles = $_POST['roles'];
+
+        $roles = [
+            'etudiant' => in_array('etudiant', $selectedRoles) ? 1 : 0,
+            'responsable' => in_array('responsable', $selectedRoles) ? 1 : 0,
+            'examinateur' => in_array('examinateur', $selectedRoles) ? 1 : 0,
+        ];
+
+        $newUser = ModelPersonne::register($_POST['nom'], $_POST['prenom'], $_POST['login'], $_POST['password'], $roles);
+        if($newUser){
+            header('Location: router.php?action=loginForm');
+        }else{
+            $error = "Erreur lors de l'inscription.";
+        }
+    }
+
     public static function deconnexion()
     {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        session_unset();
         session_destroy();
         include 'config.php';
         $vue = $root . '/app/view/main_view.php';
