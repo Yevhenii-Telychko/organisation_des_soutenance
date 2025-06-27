@@ -1,5 +1,6 @@
 <?php
 require '../controller/Controller.php';
+require '../controller/ControllerConnexion.php';
 
 $query_string = $_SERVER['QUERY_STRING'];
 
@@ -14,6 +15,13 @@ unset($param["action"]);
 $args = $param;
 
 switch ($action) {
+    case "loginForm":
+    case "login":
+    case "deeconnexion":
+        ControllerConnexion::$action();
+        break;
+
+
     default:
         $action = "mainView";
         Controller::$action();

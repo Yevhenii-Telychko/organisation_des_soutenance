@@ -2,7 +2,6 @@
 <body>
 <?php include 'fragment/menu.php'; ?>
 <div class="container">
-    <?php include 'fragment/info.php'; ?>
 </div>
 
 
