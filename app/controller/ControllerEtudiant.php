@@ -34,7 +34,7 @@ class ControllerEtudiant
         } else {
             $error = "Impossible de réserver ce créneau.";
             include 'config.php';
-            $view = $root . '/app/view/personne/error.php';
+            $view = $root . '/app/view/fragment/error.php';
             require($view);
         }
     }

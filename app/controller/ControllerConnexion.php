@@ -32,7 +32,7 @@ class ControllerConnexion
         } else {
             $error = "Login ou mot de passe incorrect.";;
             require 'config.php';
-            $view = $root . '/app/view/personne/error.php';
+            $view = $root . '/app/view/fragment/error.php';
             require($view);
         }
 
@@ -62,7 +62,7 @@ class ControllerConnexion
         } else {
             $error = "Erreur lors de l'inscription.";
             include 'config.php';
-            $view = $root . '/app/view/personne/error.php';
+            $view = $root . '/app/view/fragment/error.php';
             require($view);
         }
 
