@@ -53,35 +53,35 @@ class ModelEtudiant
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function supprimerRDVPourProjet($etudiant_id, $projet_id)
-    {
-        $db = Model::getInstance();
-        $stmt = $db->prepare("DELETE FROM rdv WHERE etudiant = :etudiant AND creneau IN (SELECT id FROM creneau WHERE projet = :projet)");
-        return $stmt->execute([
-            'etudiant' => $etudiant_id,
-            'projet' => $projet_id
-        ]);
-    }
-
-
     public static function reserverRDV($etudiant_id, $creneau_id)
     {
         $db = Model::getInstance();
+
 
         $stmt = $db->prepare("SELECT projet FROM creneau WHERE id = :id");
         $stmt->execute(['id' => $creneau_id]);
         $projet_id = $stmt->fetchColumn();
 
-        self::supprimerRDVPourProjet($etudiant_id, $projet_id);
 
-        $statement = $db->query("SELECT MAX(id) FROM rdv");
-        $tuple = $statement->fetch();
-        $id = $tuple['0'];
-        $id++;
+        $stmt = $db->prepare("
+        SELECT rdv.id 
+        FROM rdv 
+        JOIN creneau ON rdv.creneau = creneau.id 
+        WHERE rdv.etudiant = :etudiant AND creneau.projet = :projet
+    ");
+        $stmt->execute([
+            'etudiant' => $etudiant_id,
+            'projet' => $projet_id
+        ]);
+        $rdv_id = $stmt->fetchColumn();
 
-        $stmt = $db->prepare("INSERT INTO rdv (id, creneau, etudiant) 
-                          VALUES (:id, :creneau, :etudiant)");
-        return $stmt->execute(['id' => $id, 'creneau' => $creneau_id, 'etudiant' => $etudiant_id]);
+        if ($rdv_id) {
+            $stmt = $db->prepare("UPDATE rdv SET creneau = :new_creneau WHERE id = :rdv_id");
+            return $stmt->execute([
+                'new_creneau' => $creneau_id,
+                'rdv_id' => $rdv_id
+            ]);
+        }
     }
 
 
