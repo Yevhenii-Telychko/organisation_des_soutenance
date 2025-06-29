@@ -24,7 +24,7 @@ class ModelExaminateur
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getMesRDV($examinateur_id)
+    public static function getMesCreneaux($examinateur_id)
     {
         $db = Model::getInstance();
         $stmt = $db->prepare("

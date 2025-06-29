@@ -13,15 +13,15 @@ class ControllerExaminateur
         require($view);
     }
 
-    public static function mesRDV()
+    public static function mesCreneaux()
     {
         if (session_status() === PHP_SESSION_NONE) session_start();
         $id_examinateur = $_SESSION['user_id'];
 
-        $listeRDV = ModelExaminateur::getMesRDV($id_examinateur);
+        $listeCreneaux = ModelExaminateur::getMesCreneaux($id_examinateur);
 
         include 'config.php';
-        $view = $root . '/app/view/examinateur/listeMesRDV.php';
+        $view = $root . '/app/view/examinateur/listeMesCreneaux.php';
         require($view);
     }
 

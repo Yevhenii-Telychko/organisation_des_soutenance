@@ -49,7 +49,7 @@ switch ($action) {
         break;
 
     case "listeExaminateurProjets":
-    case "mesRDV":
+    case "mesCreneaux":
         ControllerExaminateur::$action($args);
         break;
     default:

@@ -4,7 +4,7 @@
 <div class="container mt-5">
     <h2 class="mb-4 text-center">Mes soutenances planifiées</h2>
 
-    <?php if (!empty($listeRDV)): ?>
+    <?php if (!empty($listeCreneaux)): ?>
         <div class="table-responsive shadow">
             <table class="table table-bordered text-center align-middle">
                 <thead class="table-success">
@@ -14,10 +14,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($listeRDV as $rdv): ?>
+                <?php foreach ($listeCreneaux as $cr): ?>
                     <tr>
-                        <td><?= htmlspecialchars($rdv['label']) ?></td>
-                        <td><?= htmlspecialchars($rdv['creneau']) ?></td>
+                        <td><?= htmlspecialchars($cr['label']) ?></td>
+                        <td><?= htmlspecialchars($cr['creneau']) ?></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
