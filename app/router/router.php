@@ -3,6 +3,7 @@ require '../controller/Controller.php';
 require '../controller/ControllerConnexion.php';
 require '../controller/ControllerEtudiant.php';
 require '../controller/ControllerResponsable.php';
+require '../controller/ControllerExaminateur.php';
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -27,11 +28,13 @@ switch ($action) {
     case "deconnexion":
         ControllerConnexion::$action();
         break;
+
     case "listeRDV":
     case "prendreRDVForm":
     case "prendreRDVSubmit":
         ControllerEtudiant::$action();
         break;
+
     case "listeProjets":
     case "projetForm":
     case "projetSubmit":
@@ -43,6 +46,11 @@ switch ($action) {
     case "listeRDVProjetForm":
     case "listeRDVPourProjet":
         ControllerResponsable::$action();
+        break;
+
+    case "listeExaminateurProjets":
+    case "mesRDV":
+        ControllerExaminateur::$action($args);
         break;
     default:
         $action = "mainView";

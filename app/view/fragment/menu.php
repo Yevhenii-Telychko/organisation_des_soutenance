@@ -33,8 +33,8 @@
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Examinateur</a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="#">Liste des projets</a></li>
-                                        <li><a class="dropdown-item" href="#">Liste complète de mes créneaux</a></li>
+                                        <li><a class="dropdown-item" href="router.php?action=listeExaminateurProjets">Liste des projets</a></li>
+                                        <li><a class="dropdown-item" href="router.php?action=mesRDV">Liste complète de mes créneaux</a></li>
                                         <li><a class="dropdown-item" href="#">Liste de mes créneaux pour un projet</a></li>
                                         <li><a class="dropdown-item" href="#">Ajouter un créneau à un projet</a></li>
                                         <li><a class="dropdown-item" href="#">Ajouter des créneaux consécutifs</a></li>
