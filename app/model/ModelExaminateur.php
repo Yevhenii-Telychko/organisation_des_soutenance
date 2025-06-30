@@ -76,4 +76,34 @@ class ModelExaminateur
 
         return $stmt->rowCount() > 0;
     }
+
+    public static function addManyCreneaux($examinateur_id, $projet_id, $start_datetime, $nombre_creneaux)
+    {
+        $db = Model::getInstance();
+
+        $stmt = $db->query("SELECT MAX(id) FROM creneau");
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $id = $result["MAX(id)"] + 1;
+
+        $stmt = $db->prepare("
+            INSERT INTO creneau (id, projet, examinateur, creneau)
+            VALUES (:id, :projet_id, :examinateur_id, :datetime)
+        ");
+
+        $datetime = new DateTime($start_datetime);
+
+        for ($i = 0; $i < $nombre_creneaux; $i++) {
+            $current_id++;
+            $stmt->execute([
+                'id' => $current_id,
+                'projet_id' => $projet_id,
+                'examinateur_id' => $examinateur_id,
+                'datetime' => $datetime->format('Y-m-d H:i:s')
+            ]);
+
+            $datetime->modify('+1 hour');
+        }
+
+        return $stmt->rowCount();
+    }
 }

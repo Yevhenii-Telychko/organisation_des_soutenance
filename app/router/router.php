@@ -55,6 +55,8 @@ switch ($action) {
     case "listeCreneauxPourProjetExaminateur":
     case "addCreneauFormExaminateur":
     case "addCreneauExaminateur":
+    case "addManyCreneauxFormExaminateur":
+    case "addManyCreneauxExaminateur":
         ControllerExaminateur::$action($args);
         break;
     default:
