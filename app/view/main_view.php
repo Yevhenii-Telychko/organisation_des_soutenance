@@ -1,4 +1,4 @@
-<?php include 'fragment/header.html'; ?>
+<?php include 'fragment/head.html'; ?>
 <body>
 <?php include 'fragment/menu.php'; ?>
 <div class="container">

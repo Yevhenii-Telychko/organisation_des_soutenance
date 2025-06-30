@@ -1,5 +1,5 @@
 <?php
-require($root . '/app/view/fragment/header.html');
+require($root . '/app/view/fragment/head.html');
 ?>
 
 <?php

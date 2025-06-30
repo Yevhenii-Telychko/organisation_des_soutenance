@@ -1,4 +1,4 @@
-<?php include $root . '/app/view/fragment/header.html'; ?>
+<?php include $root . '/app/view/fragment/head.html'; ?>
 <?php include $root . '/app/view/fragment/menu.php'; ?>
 
 <div class="container mt-5">
