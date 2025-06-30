@@ -206,24 +206,15 @@ class ModelResponsable
         }
     }
 
-    public static function getEtudiantsSansRDV($responsable_id)
+    public static function getEtudiantsSansProjet()
     {
         try {
             $db = Model::getInstance();
-            $stmt = $db->prepare("
-        SELECT DISTINCT p.nom, p.prenom
-        FROM personne p
-        JOIN projet pr ON pr.groupe = p.id
-        WHERE pr.responsable = :id
-        AND p.id NOT IN (
-            SELECT etudiant FROM rdv
-        )
-    ");
-            $stmt->execute(['id' => $responsable_id]);
+            $stmt = $db->prepare("SELECT id, nom, prenom FROM personne WHERE role_etudiant = 1 AND id NOT IN (SELECT etudiant FROM rdv) ");
+            $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             printf("<p>%s - %s<p/>\n", $e->getCode(), $e->getMessage());
-
             return NULL;
         }
     }

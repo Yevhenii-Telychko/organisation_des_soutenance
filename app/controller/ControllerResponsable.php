@@ -138,7 +138,7 @@ class ControllerResponsable
         $nb_projets = ModelResponsable::getNombreProjets($responsable_id);
         $repartition = ModelResponsable::getRepartitionParGroupe($responsable_id);
         $taux = ModelResponsable::getTauxOccupationCreneaux($responsable_id);
-        $etudiants_sans_rdv = ModelResponsable::getEtudiantsSansRDV($responsable_id);
+        $etudiants_sans_projet = ModelResponsable::getEtudiantsSansProjet();
 
         include 'config.php';
         $view = $root . '/app/view/responsable/dashboard.php';

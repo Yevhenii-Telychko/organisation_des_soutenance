@@ -23,12 +23,12 @@
     </div>
 
     <div class="card shadow p-4">
-        <h5>Étudiants sans rendez-vous</h5>
-        <?php if (empty($etudiants_sans_rdv)): ?>
+        <h5>Étudiants sans projet</h5>
+        <?php if (empty($etudiants_sans_projet)): ?>
             <div class="alert alert-success">Tous les étudiants ont un rendez-vous 🎉</div>
         <?php else: ?>
             <ul class="list-group">
-                <?php foreach ($etudiants_sans_rdv as $etudiant): ?>
+                <?php foreach ($etudiants_sans_projet as $etudiant): ?>
                     <li class="list-group-item"><?= $etudiant['prenom'] ?> <?= $etudiant['nom'] ?></li>
                 <?php endforeach; ?>
             </ul>
