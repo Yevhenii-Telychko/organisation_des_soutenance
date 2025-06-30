@@ -29,6 +29,4 @@ include $root . '/app/view/fragment/menu.php';
 </div>
 
 
-<?php
-include $root . '/app/view/fragment/footer.html';
-?>
+<?php include $root . '/app/view/fragment/footer.html'; ?>

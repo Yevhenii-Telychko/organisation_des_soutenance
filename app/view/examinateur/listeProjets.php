@@ -34,7 +34,7 @@ include $root . '/app/view/fragment/menu.php';
         </div>
     <?php else: ?>
         <div class="alert alert-info text-center" role="alert">
-            Vous n’êtes affecté à aucun projet actuellement.
+            Vous n’êtes affecté à aucun projet actuellement en tant qu'examinateur.
         </div>
     <?php endif; ?>
 </div>

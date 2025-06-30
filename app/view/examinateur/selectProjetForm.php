@@ -11,7 +11,7 @@ include $root . '/app/view/fragment/menu.php';
 
     <h2 class="mt-3 mb-3 text-danger">Sélectionner un projet</h2>
 
-    <form action="router.php?action=listeCreneauxPourProjetExaminateur" method="post">
+    <form action="router.php?action=listeCreneauxPourProjetExaminateur" method="post" class="card p-4 shadow" style="max-width: 500px;">
         <div class="mb-3">
             <label for="projet_id" class="form-label">Projet</label>
             <select class="form-select" id="projet_id" name="projet_id" required>
@@ -22,7 +22,7 @@ include $root . '/app/view/fragment/menu.php';
                 <?php endforeach; ?>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary">Valider</button>
+        <button type="submit" class="btn btn-success">Valider</button>
     </form>
 </div>
 

@@ -11,7 +11,7 @@ include $root . '/app/view/fragment/menu.php';
 
     <h2 class="mt-3 mb-3 text-danger">Ajouter un créneau</h2>
 
-    <form action="router.php?action=addCreneauExaminateur" method="post">
+    <form action="router.php?action=addCreneauExaminateur" method="post" class="card p-4 shadow" style="max-width: 500px;">
         <div class="mb-3">
             <label for="projet_id" class="form-label">Projet</label>
             <select class="form-select" id="projet_id" name="projet_id" required>
@@ -30,7 +30,7 @@ include $root . '/app/view/fragment/menu.php';
             <label for="_time" class="form-label">Quelle heure ?</label>
             <input type="time" class="form-control" id="time" name="time" required>
         </div>
-        <button type="submit" class="btn btn-primary">Ajouter</button>
+        <button type="submit" class="btn btn-success">Ajouter</button>
     </form>
 </div>
 

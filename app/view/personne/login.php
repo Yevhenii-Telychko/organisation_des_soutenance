@@ -1,10 +1,8 @@
 <?php
 require($root . '/app/view/fragment/head.html');
-?>
-
-<?php
 include $root . '/app/view/fragment/menu.php';
 ?>
+
 <div class="container d-flex justify-content-center align-items-center mt-5">
     <div class="card shadow p-4" style="min-width: 350px; max-width: 400px;">
         <h3 class="text-center mb-4">Connexion</h3>
@@ -26,10 +24,7 @@ include $root . '/app/view/fragment/menu.php';
             </div>
         </form>
     </div>
-
 </div>
 
-<?php
-include $root . '/app/view/fragment/footer.html';
-?>
+<?php include $root . '/app/view/fragment/footer.html'; ?>
 
