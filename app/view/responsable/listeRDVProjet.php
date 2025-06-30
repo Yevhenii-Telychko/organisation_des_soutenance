@@ -9,7 +9,7 @@ include $root . '/app/view/fragment/menu.php';
         <p>Inventaire de vos compétences...</p>
     </div>
 
-    <h2 class="mt-3 mb-3 text-danger"><?php $rdvs ? "Liste des RDV du projet " . $rdvs[0]['projet_label'] : "" ?></h2>
+    <h2 class="mt-3 mb-3 text-danger"><?php echo count($rdvs) !== 0 ? "Liste des RDV du projet " . $rdvs[0]['projet_label'] : "" ?></h2>
 
     <?php if (!empty($rdvs)): ?>
         <div class="table-responsive shadow">
