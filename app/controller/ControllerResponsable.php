@@ -5,6 +5,8 @@ class ControllerResponsable
 {
     public static function listeProjetsResponsable()
     {
+        $success_msg = isset($_SESSION["success_msg"]) ? $_SESSION["success_msg"] : null;
+        unset($_SESSION["success_msg"]);
         $listeProjets = ModelResponsable::getProjets();
 
         include 'config.php';
@@ -25,7 +27,7 @@ class ControllerResponsable
 
         if ($newProjet) {
             $_SESSION["success_msg"] = "Projet ajouté avec succès.";
-            header('Location: router.php?action=listeProjetsResponsable');
+            header('Location: router.php?controller=responsable&action=listeProjetsResponsable');
             exit();
         } else {
             $error = "Impossible d'ajouter ce projet.";
@@ -43,6 +45,7 @@ class ControllerResponsable
         $success_msg = isset($_SESSION["success_msg"]) ? $_SESSION["success_msg"] : null;
         unset($_SESSION["success_msg"]);
         $listeExaminateurs = ModelResponsable::listeExaminateurs();
+
         include 'config.php';
         $view = $root . '/app/view/responsable/listeExaminateurs.php';
         require($view);
@@ -60,7 +63,7 @@ class ControllerResponsable
         $newExaminateur = ModelResponsable::addExaminateur(strtoupper($_POST['nom']), $_POST['prenom']);
         if ($newExaminateur) {
             $_SESSION["success_msg"] = "Examinateur ajouté avec succès.";
-            header('Location: router.php?action=listeExaminateursResponsable');
+            header('Location: router.php?controller=responsable&action=listeExaminateursResponsable');
             exit();
         } else {
             $error = "Impossible d'ajouter cet examinateur.";
@@ -144,5 +147,4 @@ class ControllerResponsable
         $view = $root . '/app/view/responsable/dashboard.php';
         require($view);
     }
-
 }

@@ -1,10 +1,8 @@
 <?php
-
 require_once '../model/ModelPersonne.php';
 
 class ControllerConnexion
 {
-
     public static function loginForm()
     {
         include 'config.php';
@@ -47,7 +45,6 @@ class ControllerConnexion
 
     public static function register()
     {
-
         $selectedRoles = $_POST['roles'];
 
         $roles = [
@@ -65,7 +62,6 @@ class ControllerConnexion
             $view = $root . '/app/view/fragment/error.php';
             require($view);
         }
-
     }
 
     public static function deconnexion()

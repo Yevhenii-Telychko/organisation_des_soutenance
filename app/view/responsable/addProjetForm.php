@@ -12,7 +12,7 @@ include $root . '/app/view/fragment/menu.php';
     <h2 class="mt-3 mb-3 text-danger">Ajout d'un projet</h2>
 
     <div class="card shadow p-4" style="max-width: 450px;">
-        <form method="post" action="router.php?action=addProjetResponsable">
+        <form method="post" action="router.php?controller=responsable&action=addProjetResponsable">
             <div class="mb-3">
                 <label for="label" class="form-label">Label du projet</label>
                 <input type="text" class="form-control" id="label" name="label" placeholder="Label" maxlength="60" required>

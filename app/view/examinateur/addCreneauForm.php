@@ -11,27 +11,33 @@ include $root . '/app/view/fragment/menu.php';
 
     <h2 class="mt-3 mb-3 text-danger">Ajouter un créneau</h2>
 
-    <form action="router.php?action=addCreneauExaminateur" method="post" class="card p-4 shadow" style="max-width: 500px;">
-        <div class="mb-3">
-            <label for="projet_id" class="form-label">Projet</label>
-            <select class="form-select" id="projet_id" name="projet_id" required>
-                <?php foreach ($listeProjets as $projet): ?>
-                    <option value="<?php echo $projet['id']; ?>">
-                        <?php echo $projet['label']; ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
+    <?php if (!empty($listeProjets)): ?>
+        <form action="router.php?controller=examinateur&action=addCreneauExaminateur" method="post" class="card p-4 shadow" style="max-width: 500px;">
+            <div class="mb-3">
+                <label for="projet_id" class="form-label">Projet</label>
+                <select class="form-select" id="projet_id" name="projet_id" required>
+                    <?php foreach ($listeProjets as $projet): ?>
+                        <option value="<?php echo $projet['id']; ?>">
+                            <?php echo $projet['label']; ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="date" class="form-label">Quel jour ?</label>
+                <input type="date" class="form-control" id="date" name="date" required>
+            </div>
+            <div class="mb-3">
+                <label for="_time" class="form-label">Quelle heure ?</label>
+                <input type="time" class="form-control" id="time" name="time" required>
+            </div>
+            <button type="submit" class="btn btn-success">Ajouter</button>
+        </form>
+    <?php else: ?>
+        <div class="alert alert-info text-center" role="alert">
+            Vous n’êtes affecté à aucun projet actuellement en tant qu'examinateur.
         </div>
-        <div class="mb-3">
-            <label for="date" class="form-label">Quel jour ?</label>
-            <input type="date" class="form-control" id="date" name="date" required>
-        </div>
-        <div class="mb-3">
-            <label for="_time" class="form-label">Quelle heure ?</label>
-            <input type="time" class="form-control" id="time" name="time" required>
-        </div>
-        <button type="submit" class="btn btn-success">Ajouter</button>
-    </form>
+    <?php endif; ?>
 </div>
 
 <?php include $root . '/app/view/fragment/footer.html'; ?>

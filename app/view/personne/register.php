@@ -6,7 +6,7 @@ include $root . '/app/view/fragment/menu.php';
 <div class="container d-flex justify-content-center align-items-center mt-3 pb-4">
     <div class="card shadow p-4" style="min-width: 450px; ">
         <h3 class="text-center mb-4">Inscription</h3>
-        <form method="post" action="router.php?action=register">
+        <form method="post" action="router.php?controller=connexion&action=register">
             <div class="mb-3">
                 <label for="nom" class="form-label">Nom</label>
                 <input type="text" class="form-control" id="nom" name="nom" placeholder="Nom" maxlength="40" required>

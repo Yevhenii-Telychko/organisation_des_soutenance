@@ -11,7 +11,7 @@ include $root . '/app/view/fragment/menu.php';
 
     <h2 class="mt-3 mb-3 text-danger">Choisir un projet pour voir les RDV</h2>
 
-    <form method="post" action="router.php?action=listeRDVProjetResponsable" class="card p-4 shadow" style="max-width: 500px;">
+    <form method="post" action="router.php?controller=responsable&action=listeRDVProjetResponsable" class="card p-4 shadow" style="max-width: 500px;">
         <div class="mb-3">
             <label for="projet" class="form-label">Choisissez un projet :</label>
             <select name="projet_id" id="projet" class="form-select" required>

@@ -44,7 +44,7 @@ class ModelResponsable
                 ':groupe' => $groupe
             ]);
 
-            return $stmt->rowCount() > 0;
+            return true;
         } catch (PDOException $e) {
             printf("<p>%s - %s<p/>\n", $e->getCode(), $e->getMessage());
 

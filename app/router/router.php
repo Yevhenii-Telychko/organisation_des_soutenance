@@ -1,67 +1,33 @@
 <?php
-require '../controller/Controller.php';
-require '../controller/ControllerConnexion.php';
-require '../controller/ControllerEtudiant.php';
-require '../controller/ControllerResponsable.php';
-require '../controller/ControllerExaminateur.php';
+require_once 'autoload.php';
 
 if (session_status() === PHP_SESSION_NONE) session_start();
 
-$query_string = $_SERVER['QUERY_STRING'];
+$controllerParam = $_GET['controller'] ?? null;
+$actionParam = $_GET['action'] ?? null;
 
-parse_str($query_string, $param);
-
-$action = htmlspecialchars($param["action"]);
-
-$action = $param["action"];
-
-unset($param["action"]);
-
-$args = $param;
-
-switch ($action) {
-    case "loginForm":
-    case "login":
-    case "registerForm":
-    case "register":
-    case "deconnexion":
-        ControllerConnexion::$action();
-        break;
-
-    case "listeRDVEtudiant":
-    case "prendreRDVFormEtudiant":
-    case "prendreRDVEtudiant":
-        ControllerEtudiant::$action();
-        break;
-
-    case "listeProjetsResponsable":
-    case "addProjetFormResponsable":
-    case "addProjetResponsable":
-    case "listeExaminateursResponsable":
-    case "addExaminateurFormResponsable":
-    case "addExaminateurResponsable":
-    case "selectProjetFormResponsable":
-    case "listeExaminateursProjetResponsable":
-    case "listeRDVProjetFormResponsable":
-    case "listeRDVProjetResponsable":
-    case "dashboard":
-        ControllerResponsable::$action();
-        break;
-
-    case "listeProjetsExaminateur":
-    case "listeCreneauxExaminateur":
-    case "selectProjetFormExaminateur":
-    case "listeCreneauxPourProjetExaminateur":
-    case "addCreneauFormExaminateur":
-    case "addCreneauExaminateur":
-    case "addManyCreneauxFormExaminateur":
-    case "addManyCreneauxExaminateur":
-        ControllerExaminateur::$action($args);
-        break;
-    default:
-        $action = "mainView";
-        Controller::$action();
+if (!$controllerParam || !$actionParam) {
+    $controllerClass = 'Controller';
+    $action = 'mainView';
+} else {
+    $controllerClass = 'Controller' . ucfirst($controllerParam);
+    $action = htmlspecialchars($actionParam);
 }
-?>
 
+$args = $_GET;
+unset($args['controller'], $args['action']);
 
+if (class_exists($controllerClass)) {
+    if (method_exists($controllerClass, $action)) {
+        $reflection = new ReflectionMethod($controllerClass, $action);
+        if ($reflection->getNumberOfParameters() > 0) {
+            $controllerClass::$action($args);
+        } else {
+            $controllerClass::$action();
+        }
+    } else {
+        echo "<p>Méthode <b>$action</b> inexistante dans $controllerClass.</p>";
+    }
+} else {
+    echo "<p>Contrôleur <b>$controllerClass</b> introuvable.</p>";
+}

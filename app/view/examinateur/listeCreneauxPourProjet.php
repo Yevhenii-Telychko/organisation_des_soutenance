@@ -16,7 +16,7 @@ include $root . '/app/view/fragment/menu.php';
             <table class="table table-bordered table-striped text-center align-middle">
                 <thead class="table-success">
                 <tr>
-                    <th>Créneau</th>
+                    <th>Créneau(x)</th>
                 </tr>
                 </thead>
                 <tbody>
