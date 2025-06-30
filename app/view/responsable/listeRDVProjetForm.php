@@ -1,9 +1,17 @@
-<?php include $root . '/app/view/fragment/head.html'; ?>
-<?php include $root . '/app/view/fragment/menu.php'; ?>
+<?php
+require($root . '/app/view/fragment/head.html');
+include $root . '/app/view/fragment/menu.php';
+?>
 
-<div class="container mt-5">
-    <h2 class="mb-4 text-center">Sélectionner un projet pour voir les RDV</h2>
-    <form method="post" action="router.php?action=listeRDVPourProjet" class="card p-4 shadow mx-auto" style="max-width: 500px;">
+<div class="container mt-4">
+    <div class="p-4 bg-success text-white rounded">
+        <h1>Organisation des soutenances</h1>
+        <p>Inventaire de vos compétences...</p>
+    </div>
+
+    <h2 class="mt-3 mb-3 text-danger">Choisir un projet pour voir les RDV</h2>
+
+    <form method="post" action="router.php?action=listeRDVProjetResponsable" class="card p-4 shadow" style="max-width: 500px;">
         <div class="mb-3">
             <label for="projet" class="form-label">Choisissez un projet :</label>
             <select name="projet_id" id="projet" class="form-select" required>

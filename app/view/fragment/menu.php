@@ -16,14 +16,14 @@
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Responsable</a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="router.php?action=listeProjets">Liste de mes projets</a></li>
-                                        <li><a class="dropdown-item" href="router.php?action=projetForm">Ajout d\'un projet</a></li>
+                                        <li><a class="dropdown-item" href="router.php?action=listeProjetsResponsable">Liste de mes projets</a></li>
+                                        <li><a class="dropdown-item" href="router.php?action=addProjetFormResponsable">Ajout d\'un projet</a></li>
                                         <hr/>
-                                        <li><a class="dropdown-item" href="router.php?action=listeExaminateurs">Liste des examinateurs</a></li>
-                                        <li><a class="dropdown-item" href="router.php?action=examinateurForm">Ajout d\'un examinateur</a></li>
-                                        <li><a class="dropdown-item" href="router.php?action=selectProjetForm">Liste des examinateur d\'un projet</a></li>
+                                        <li><a class="dropdown-item" href="router.php?action=listeExaminateursResponsable">Liste des examinateurs</a></li>
+                                        <li><a class="dropdown-item" href="router.php?action=addExaminateurFormResponsable">Ajout d\'un examinateur</a></li>
+                                        <li><a class="dropdown-item" href="router.php?action=selectProjetFormResponsable">Liste des examinateur d\'un projet</a></li>
                                         <hr/>
-                                        <li><a class="dropdown-item" href="router.php?action=listeRDVProjetForm">Planning d\'un projet</a></li>
+                                        <li><a class="dropdown-item" href="router.php?action=listeRDVProjetFormResponsable">Planning d\'un projet</a></li>
                                     </ul>
                                 </li>
                                 ';

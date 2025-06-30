@@ -3,46 +3,40 @@ require_once '../model/ModelResponsable.php';
 
 class ControllerResponsable
 {
-
-    public static function listeProjets()
+    public static function listeProjetsResponsable()
     {
-        if (session_status() === PHP_SESSION_NONE) session_start();
-
-        $success_msg = isset($_SESSION["success_msg"]) ? $_SESSION["success_msg"] : null;
-        unset($_SESSION["success_msg"]);
-        $listeProjets = ModelResponsable::listeProjets();
+        $listeProjets = ModelResponsable::getProjets();
 
         include 'config.php';
         $view = $root . '/app/view/responsable/listeProjets.php';
         require($view);
     }
 
-    public static function projetForm()
+    public static function addProjetFormResponsable()
     {
         include 'config.php';
-        $view = $root . '/app/view/responsable/projetForm.php';
+        $view = $root . '/app/view/responsable/addProjetForm.php';
         require($view);
     }
 
-    public static function projetSubmit()
+    public static function addProjetResponsable()
     {
-        if (session_status() === PHP_SESSION_NONE) session_start();
-
-        $newProjet = ModelResponsable::addProjet($_POST['label'], $_SESSION['user_id'], $_POST['groupe']);
+        $newProjet = ModelResponsable::addProjet($_POST['label'], $_POST['groupe']);
 
         if ($newProjet) {
             $_SESSION["success_msg"] = "Projet ajouté avec succès.";
-            header('Location: router.php?action=listeProjets');
+            header('Location: router.php?action=listeProjetsResponsable');
             exit();
         } else {
             $error = "Impossible d'ajouter ce projet.";
+
             include 'config.php';
             $view = $root . '/app/view/fragment/error.php';
             require($view);
         }
     }
 
-    public static function listeExaminateurs()
+    public static function listeExaminateursResponsable()
     {
         if (session_status() === PHP_SESSION_NONE) session_start();
 
@@ -54,82 +48,83 @@ class ControllerResponsable
         require($view);
     }
 
-    public static function examinateurForm()
+    public static function addExaminateurFormResponsable()
     {
         include 'config.php';
-        $view = $root . '/app/view/responsable/examinateurForm.php';
+        $view = $root . '/app/view/responsable/addExaminateurForm.php';
         require($view);
     }
 
-    public static function examinateurSubmit()
+    public static function addExaminateurResponsable()
     {
         $newExaminateur = ModelResponsable::addExaminateur(strtoupper($_POST['nom']), $_POST['prenom']);
         if ($newExaminateur) {
             $_SESSION["success_msg"] = "Examinateur ajouté avec succès.";
-            header('Location: router.php?action=listeExaminateurs');
+            header('Location: router.php?action=listeExaminateursResponsable');
             exit();
         } else {
-            $error = "Impossible d'ajouter ce projet.";
+            $error = "Impossible d'ajouter cet examinateur.";
+
             include 'config.php';
             $view = $root . '/app/view/fragment/error.php';
             require($view);
         }
     }
 
-    public static function selectProjetForm()
+    public static function selectProjetFormResponsable()
     {
-        if (session_status() === PHP_SESSION_NONE) session_start();
-        $projets = ModelResponsable::getProjetsDuResponsable($_SESSION['user_id']);
+        $projets = ModelResponsable::getProjetsResponsable();
 
         include 'config.php';
         $view = $root . '/app/view/responsable/selectProjetForm.php';
         require($view);
     }
 
-    public static function listeExaminateursPourProjet()
+    public static function listeExaminateursProjetResponsable()
     {
-        if (session_status() === PHP_SESSION_NONE) session_start();
         $id_projet = isset($_POST['projet_id']) ? $_POST['projet_id'] : null;
 
         if (!$id_projet) {
             $error = "Aucun projet sélectionné.";
+
             include 'config.php';
             $view = $root . '/app/view/fragment/error.php';
             require($view);
+
             return;
         }
 
-        $listeExaminateurs = ModelResponsable::getExaminateursPourProjet($id_projet);
+        $listeExaminateurs = ModelResponsable::getExaminateursProjet($id_projet);
 
         include 'config.php';
         $view = $root . '/app/view/responsable/listeExaminateurs.php';
         require($view);
     }
 
-    public static function listeRDVProjetForm()
+    public static function listeRDVProjetFormResponsable()
     {
-        if (session_status() === PHP_SESSION_NONE) session_start();
-        $projets = ModelResponsable::getProjetsDuResponsable($_SESSION['user_id']);
+        $projets = ModelResponsable::getProjetsResponsable();
 
         include 'config.php';
-        $view = $root . '/app/view/responsable/rdvProjetForm.php';
+        $view = $root . '/app/view/responsable/listeRDVProjetForm.php';
         require($view);
     }
 
-    public static function listeRDVPourProjet()
+    public static function listeRDVProjetResponsable()
     {
-        if (session_status() === PHP_SESSION_NONE) session_start();
-        $id_projet = isset($_POST['projet_id']) ? $_POST['projet_id'] : null;
+        $projet_id = isset($_POST['projet_id']) ? $_POST['projet_id'] : null;
 
-        if (!$id_projet) {
+        if (!$projet_id) {
             $error = "Aucun projet sélectionné.";
+
             include 'config.php';
             $view = $root . '/app/view/fragment/error.php';
             require($view);
+
             return;
         }
 
-        $rdvs = ModelResponsable::getRDVPourProjet($id_projet);
+        $rdvs = ModelResponsable::getRDVProjet($projet_id);
 
         include 'config.php';
         $view = $root . '/app/view/responsable/listeRDVProjet.php';

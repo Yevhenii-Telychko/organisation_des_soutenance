@@ -34,16 +34,16 @@ switch ($action) {
         ControllerEtudiant::$action();
         break;
 
-    case "listeProjets":
-    case "projetForm":
-    case "projetSubmit":
-    case "listeExaminateurs":
-    case "examinateurForm":
-    case "examinateurSubmit":
-    case "selectProjetForm":
-    case "listeExaminateursPourProjet":
-    case "listeRDVProjetForm":
-    case "listeRDVPourProjet":
+    case "listeProjetsResponsable":
+    case "addProjetFormResponsable":
+    case "addProjetResponsable":
+    case "listeExaminateursResponsable":
+    case "addExaminateurFormResponsable":
+    case "addExaminateurResponsable":
+    case "selectProjetFormResponsable":
+    case "listeExaminateursProjetResponsable":
+    case "listeRDVProjetFormResponsable":
+    case "listeRDVProjetResponsable":
         ControllerResponsable::$action();
         break;
 

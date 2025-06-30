@@ -4,91 +4,148 @@ require_once 'Model.php';
 
 class ModelResponsable
 {
-    public static function listeProjets()
+    public static function getProjets()
     {
-        $db = Model::getInstance();
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        $responsable_id = $_SESSION['user_id'];
+
+        try {
+            $db = Model::getInstance();
+            $stmt = $db->prepare("SELECT * FROM projet WHERE responsable = :responsable_id");
+            $stmt->execute(['responsable_id' => $responsable_id]);
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            printf("<p>%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+
+            return NULL;
         }
-        $id = $_SESSION['user_id'];
-        $stmt = $db->prepare("SELECT * FROM projet WHERE responsable = :id");
-        $stmt->execute(['id' => $id]);;
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function addProjet($label, $responsable, $groupe)
+    public static function addProjet($label, $groupe)
     {
-        $db = Model::getInstance();
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        $responsable_id = $_SESSION['user_id'];
 
-        $statement = $db->query("SELECT MAX(id) FROM projet");
-        $tuple = $statement->fetch();
-        $id = $tuple['0'];
-        $id++;
+        try {
+            $db = Model::getInstance();
+            $stmt = $db->query("SELECT MAX(id) FROM projet");
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $id = $result["MAX(id)"] + 1;
 
-        $stmt = $db->prepare("INSERT INTO projet (id, label, responsable, groupe) VALUES (:id, :label, :responsable, :groupe)");
-        return $stmt->execute([
-            ':id' => $id,
-            ':label' => $label,
-            ':responsable' => $responsable,
-            ':groupe' => $groupe
-        ]);
+            $stmt = $db->prepare("
+                INSERT INTO projet (id, label, responsable, groupe)
+                VALUES (:id, :label, :responsable_id, :groupe)
+            ");
+            $stmt->execute([
+                ':id' => $id,
+                ':label' => $label,
+                ':responsable_id' => $responsable_id,
+                ':groupe' => $groupe
+            ]);
+
+            return $stmt->rowCount() > 0;
+        } catch (PDOException $e) {
+            printf("<p>%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+
+            return NULL;
+        }
     }
 
     public static function listeExaminateurs()
     {
-        $db = Model::getInstance();
-        $stmt = $db->prepare("SELECT * FROM personne WHERE role_examinateur = 1");
-        $stmt->execute();;
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        try {
+            $db = Model::getInstance();
+            $stmt = $db->prepare("SELECT * FROM personne WHERE role_examinateur = 1");
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            printf("<p>%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+
+            return NULL;
+        }
     }
 
     public static function addExaminateur($nom, $prenom)
     {
-        $db = Model::getInstance();
-        $statement = $db->query("SELECT MAX(id) FROM personne");
-        $tuple = $statement->fetch();
-        $id = $tuple['0'];
-        $id++;
+        try {
+            $db = Model::getInstance();
+            $stmt = $db->query("SELECT MAX(id) AS max_id FROM personne");
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            $id = $result['max_id'] + 1;
 
-        $stmt = $db->prepare("INSERT INTO personne (id, nom, prenom, role_responsable, role_examinateur, role_etudiant, login, password) VALUES (:id, :nom, :prenom, 0,1,0, :nom,' ')");
-        return $stmt->execute([
-            ':id' => $id,
-            ':nom' => $nom,
-            ':prenom' => $prenom,
-            ':login' => $nom,
-        ]);
+            $stmt = $db->prepare("
+                INSERT INTO personne (
+                    id, nom, prenom, role_responsable, role_examinateur, role_etudiant, login, password
+                ) VALUES (
+                    :id, :nom, :prenom, 0, 1, 0, :login, 'secret'
+                )
+            ");
+
+            return $stmt->execute([
+                ':id' => $id,
+                ':nom' => $nom,
+                ':prenom' => $prenom,
+                ':login' => strtolower($nom)
+            ]);
+        } catch (PDOException $e) {
+            printf("<p>%s - %s</p>\n", $e->getCode(), $e->getMessage());
+
+            return NULL;
+        }
     }
 
-    public static function getProjetsDuResponsable($id_responsable)
+    public static function getProjetsResponsable()
     {
-        $db = Model::getInstance();
-        $stmt = $db->prepare("SELECT id, label FROM projet WHERE responsable = :id");
-        $stmt->execute(['id' => $id_responsable]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        $responsable_id = $_SESSION['user_id'];
+
+        try {
+            $db = Model::getInstance();
+            $stmt = $db->prepare("SELECT id, label FROM projet WHERE responsable = :responsable_id");
+            $stmt->execute(['responsable_id' => $responsable_id]);
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            printf("<p>%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+
+            return NULL;
+        }
     }
 
-
-    public static function getExaminateursPourProjet($projet_id)
+    public static function getExaminateursProjet($projet_id)
     {
-        $db = Model::getInstance();
-        $stmt = $db->prepare("
-        SELECT DISTINCT p.id, p.nom, p.prenom
-        FROM creneau c
-        JOIN personne p ON c.examinateur = p.id
-        WHERE c.projet = :projet_id
-    ");
-        $stmt->execute(['projet_id' => $projet_id]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        try {
+            $db = Model::getInstance();
+            $stmt = $db->prepare("
+                SELECT DISTINCT p.id, p.nom, p.prenom
+                FROM creneau c
+                JOIN personne p ON c.examinateur = p.id
+                WHERE c.projet = :projet_id
+            ");
+            $stmt->execute(['projet_id' => $projet_id]);
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            printf("<p>%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+
+            return NULL;
+        }
     }
 
-    public static function getRDVPourProjet($id_projet)
+    public static function getRDVProjet($id_projet)
     {
-        $db = Model::getInstance();
+        try {
+            $db = Model::getInstance();
+            $stmt = $db->prepare("SELECT * FROM infordv WHERE projet_id = :id_projet ORDER BY creneau");
+            $stmt->execute(['id_projet' => $id_projet]);
 
-        $stmt = $db->prepare("SELECT * FROM infordv WHERE projet_id = :id_projet ORDER BY creneau");
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            printf("<p>%s - %s<p/>\n", $e->getCode(), $e->getMessage());
 
-        $stmt->execute(['id_projet' => $id_projet]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return NULL;
+        }
     }
-
 }

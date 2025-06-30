@@ -1,14 +1,18 @@
 <?php
 require($root . '/app/view/fragment/head.html');
-?>
-
-<?php
 include $root . '/app/view/fragment/menu.php';
 ?>
-<div class="container d-flex justify-content-center align-items-center mt-3 pb-4">
-    <div class="card shadow p-4" style="min-width: 450px; ">
-        <h3 class="text-center mb-4">Inscription</h3>
-        <form method="post" action="router.php?action=projetSubmit">
+
+<div class="container mt-4">
+    <div class="p-4 bg-success text-white rounded">
+        <h1>Organisation des soutenances</h1>
+        <p>Inventaire de vos compétences...</p>
+    </div>
+
+    <h2 class="mt-3 mb-3 text-danger">Ajout d'un projet</h2>
+
+    <div class="card shadow p-4" style="max-width: 450px;">
+        <form method="post" action="router.php?action=addProjetResponsable">
             <div class="mb-3">
                 <label for="label" class="form-label">Label du projet</label>
                 <input type="text" class="form-control" id="label" name="label" placeholder="Label" maxlength="60" required>
@@ -35,6 +39,4 @@ include $root . '/app/view/fragment/menu.php';
 </div>
 
 
-<?php
-include $root . '/app/view/fragment/footer.html';
-?>
+<?php include $root . '/app/view/fragment/footer.html'; ?>

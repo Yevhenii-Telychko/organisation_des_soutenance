@@ -1,17 +1,21 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-hr{
+hr {
     margin: 0;
     padding: 0;
 }
-span{
+span {
     font-weight: 600;
 }
 
 footer p {
     margin: 10px 0 10px 0;
+}
+
+.table {
+    margin-bottom: 0;
 }
