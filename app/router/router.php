@@ -44,6 +44,7 @@ switch ($action) {
     case "listeExaminateursProjetResponsable":
     case "listeRDVProjetFormResponsable":
     case "listeRDVProjetResponsable":
+    case "dashboard":
         ControllerResponsable::$action();
         break;
 

@@ -148,4 +148,83 @@ class ModelResponsable
             return NULL;
         }
     }
+
+    public static function getNombreProjets($responsable_id)
+    {
+        try {
+            $db = Model::getInstance();
+            $stmt = $db->prepare("SELECT COUNT(*) FROM projet WHERE responsable = :id");
+            $stmt->execute(['id' => $responsable_id]);
+            return $stmt->fetchColumn();
+        } catch (PDOException $e) {
+            printf("<p>%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+
+            return NULL;
+        }
+    }
+
+    public static function getRepartitionParGroupe($responsable_id)
+    {
+        try {
+            $db = Model::getInstance();
+            $stmt = $db->prepare("
+        SELECT groupe, COUNT(*) AS nb 
+        FROM projet 
+        WHERE responsable = :id 
+        GROUP BY groupe
+    ");
+            $stmt->execute(['id' => $responsable_id]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            printf("<p>%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+
+            return NULL;
+        }
+    }
+
+    public static function getTauxOccupationCreneaux($responsable_id)
+    {
+        try {
+            $db = Model::getInstance();
+            $stmt = $db->prepare("
+        SELECT ROUND((SELECT COUNT(*) 
+                      FROM rdv r 
+                      JOIN creneau c ON r.creneau = c.id 
+                      WHERE c.projet IN 
+                          (SELECT id FROM projet WHERE responsable = :id)) 
+                     * 100.0 / 
+                     (SELECT COUNT(*) 
+                      FROM creneau 
+                      WHERE projet IN (SELECT id FROM projet WHERE responsable = :id)), 2) AS taux
+    ");
+            $stmt->execute(['id' => $responsable_id]);
+            return $stmt->fetchColumn();
+        } catch (PDOException $e) {
+            printf("<p>%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+
+            return NULL;
+        }
+    }
+
+    public static function getEtudiantsSansRDV($responsable_id)
+    {
+        try {
+            $db = Model::getInstance();
+            $stmt = $db->prepare("
+        SELECT DISTINCT p.nom, p.prenom
+        FROM personne p
+        JOIN projet pr ON pr.groupe = p.id
+        WHERE pr.responsable = :id
+        AND p.id NOT IN (
+            SELECT etudiant FROM rdv
+        )
+    ");
+            $stmt->execute(['id' => $responsable_id]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            printf("<p>%s - %s<p/>\n", $e->getCode(), $e->getMessage());
+
+            return NULL;
+        }
+    }
 }
