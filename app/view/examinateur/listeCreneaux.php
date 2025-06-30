@@ -1,8 +1,15 @@
-<?php include $root . '/app/view/fragment/header.html'; ?>
-<?php include $root . '/app/view/fragment/menu.php'; ?>
+<?php
+require($root . '/app/view/fragment/head.html');
+include $root . '/app/view/fragment/menu.php';
+?>
 
-<div class="container mt-5">
-    <h2 class="mb-4 text-center">Mes soutenances planifiées</h2>
+<div class="container mt-4">
+    <div class="p-4 bg-success text-white rounded">
+        <h1>Organisation des soutenances</h1>
+        <p>Inventaire de vos compétences...</p>
+    </div>
+
+    <h2 class="mt-3 mb-3 text-danger">Liste de mes créneaux</h2>
 
     <?php if (!empty($listeCreneaux)): ?>
         <div class="table-responsive shadow">
@@ -14,10 +21,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($listeCreneaux as $cr): ?>
+                <?php foreach ($listeCreneaux as $creneau): ?>
                     <tr>
-                        <td><?= htmlspecialchars($cr['label']) ?></td>
-                        <td><?= htmlspecialchars($cr['creneau']) ?></td>
+                        <td><?php echo $creneau['label']; ?></td>
+                        <td><?php echo $creneau['creneau']; ?></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

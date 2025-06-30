@@ -1,8 +1,15 @@
-<?php include $root . '/app/view/fragment/header.html'; ?>
-<?php include $root . '/app/view/fragment/menu.php'; ?>
+<?php
+require($root . '/app/view/fragment/head.html');
+include $root . '/app/view/fragment/menu.php';
+?>
 
-<div class="container mt-5">
-    <h2 class="mb-4 text-center">Mes projets</h2>
+<div class="container mt-4">
+    <div class="p-4 bg-success text-white rounded">
+        <h1>Organisation des soutenances</h1>
+        <p>Inventaire de vos compétences...</p>
+    </div>
+
+    <h2 class="mt-3 mb-3 text-danger">Liste des projets de <?php echo $_SESSION['surname'] . " " . $_SESSION['name']; ?></h2>
 
     <?php if (!empty($listeProjets)): ?>
         <div class="table-responsive shadow">
@@ -17,9 +24,9 @@
                 <tbody>
                 <?php foreach ($listeProjets as $projet): ?>
                     <tr>
-                        <td><?= htmlspecialchars($projet['label']) ?></td>
-                        <td><?= htmlspecialchars($projet['responsable_prenom']) ?> <?= htmlspecialchars($projet['responsable_nom']) ?></td>
-                        <td><?= htmlspecialchars($projet['groupe']) ?></td>
+                        <td><?php echo $projet['label']; ?></td>
+                        <td><?php echo $projet['responsable_prenom'] . " " . $projet['responsable_nom']; ?></td>
+                        <td><?php echo $projet['groupe']; ?></td>
                     </tr>
                 <?php endforeach; ?>
                 </tbody>

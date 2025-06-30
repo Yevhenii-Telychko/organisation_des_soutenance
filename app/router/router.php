@@ -4,6 +4,7 @@ require '../controller/ControllerConnexion.php';
 require '../controller/ControllerEtudiant.php';
 require '../controller/ControllerResponsable.php';
 require '../controller/ControllerExaminateur.php';
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -48,8 +49,12 @@ switch ($action) {
         ControllerResponsable::$action();
         break;
 
-    case "listeExaminateurProjets":
-    case "mesCreneaux":
+    case "listeProjetsExaminateur":
+    case "listeCreneauxExaminateur":
+    case "selectProjetFormExaminateur":
+    case "listeCreneauxPourProjetExaminateur":
+    case "addCreneauFormExaminateur":
+    case "addCreneauExaminateur":
         ControllerExaminateur::$action($args);
         break;
     default:
