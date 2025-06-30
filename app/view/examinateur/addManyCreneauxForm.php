@@ -11,7 +11,7 @@ include $root . '/app/view/fragment/menu.php';
 
     <h2 class="mt-3 mb-3 text-danger">Ajouter une liste de créneaux à un projet</h2>
 
-    <form action="router.php?action=addManyCreneauxExaminateur" method="post">
+    <form action="router.php?action=addManyCreneauxExaminateur" method="post" class="card p-4 shadow" style="max-width: 500px;">
         <div class="mb-3">
             <label for="projet_id" class="form-label">Projet</label>
             <select class="form-select" id="projet_id" name="projet_id" required>
@@ -34,7 +34,7 @@ include $root . '/app/view/fragment/menu.php';
             <label for="nb_creneaux" class="form-label">Nombre de créneaux (1-10)</label>
             <input type="number" class="form-control" id="nb_creneaux" name="nb_creneaux" min="1" max="10" required>
         </div>
-        <button type="submit" class="btn btn-primary">Ajouter</button>
+        <button type="submit" class="btn btn-success">Ajouter</button>
     </form>
 </div>
 
