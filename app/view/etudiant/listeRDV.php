@@ -4,7 +4,12 @@ include $root . '/app/view/fragment/menu.php';
 ?>
 
 <div class="container mt-4">
-    <h2 class="mb-4 text-center">Mes rendez-vous de soutenance</h2>
+    <div class="p-4 bg-success text-white rounded">
+        <h1>Organisation des soutenances</h1>
+        <p>Inventaire de vos compétences...</p>
+    </div>
+
+    <h2 class="mt-3 mb-3 text-danger">Mes rendez-vous de soutenance</h2>
 
     <?php if (!empty($listeRDV)): ?>
         <div class="table-responsive shadow">
