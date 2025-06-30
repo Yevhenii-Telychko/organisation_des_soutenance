@@ -5,10 +5,7 @@ class ControllerExaminateur
 {
     public static function listeProjetsExaminateur()
     {
-        if (session_status() === PHP_SESSION_NONE) session_start();
-
-        $examinateur_id = $_SESSION['user_id'];
-        $listeProjets = ModelExaminateur::getProjets($examinateur_id);
+        $listeProjets = ModelExaminateur::getProjets();
 
         include 'config.php';
         $view = $root . '/app/view/examinateur/listeProjets.php';
@@ -17,10 +14,7 @@ class ControllerExaminateur
 
     public static function listeCreneauxExaminateur()
     {
-        if (session_status() === PHP_SESSION_NONE) session_start();
-
-        $examinateur_id = $_SESSION['user_id'];
-        $listeCreneaux = ModelExaminateur::getCreneaux($examinateur_id);
+        $listeCreneaux = ModelExaminateur::getCreneaux();
 
         include 'config.php';
         $view = $root . '/app/view/examinateur/listeCreneaux.php';
@@ -29,10 +23,7 @@ class ControllerExaminateur
 
     public static function selectProjetFormExaminateur()
     {
-        if (session_status() === PHP_SESSION_NONE) session_start();
-
-        $examinateur_id = $_SESSION['user_id'];
-        $listeProjets = ModelExaminateur::getProjets($examinateur_id);
+        $listeProjets = ModelExaminateur::getProjets();
 
         include 'config.php';
         $view = $root . '/app/view/examinateur/selectProjetForm.php';
@@ -41,20 +32,19 @@ class ControllerExaminateur
 
     public static function listeCreneauxPourProjetExaminateur()
     {
-        if (session_status() === PHP_SESSION_NONE) session_start();
-
-        $examinateur_id = $_SESSION['user_id'];
         $projet_id = isset($_POST['projet_id']) ? $_POST['projet_id'] : null;
 
         if (!$projet_id) {
             $error = "Aucun projet sélectionné.";
+
             include 'config.php';
             $view = $root . '/app/view/fragment/error.php';
             require($view);
+
             return;
         }
 
-        $listeCreneaux = ModelExaminateur::getCreneauxPourProjet($examinateur_id, $projet_id);
+        $listeCreneaux = ModelExaminateur::getCreneauxPourProjet($projet_id);
 
         include 'config.php';
         $view = $root . '/app/view/examinateur/listeCreneauxPourProjet.php';
@@ -63,10 +53,7 @@ class ControllerExaminateur
 
     public static function addCreneauFormExaminateur()
     {
-        if (session_status() === PHP_SESSION_NONE) session_start();
-
-        $examinateur_id = $_SESSION['user_id'];
-        $listeProjets = ModelExaminateur::getProjets($examinateur_id);
+        $listeProjets = ModelExaminateur::getProjets();
 
         include 'config.php';
         $view = $root . '/app/view/examinateur/addCreneauForm.php';
@@ -75,18 +62,23 @@ class ControllerExaminateur
 
     public static function addCreneauExaminateur()
     {
-        if (session_status() === PHP_SESSION_NONE) session_start();
-
-        $examinateur_id = $_SESSION['user_id'];
         $projet_id = isset($_POST['projet_id']) ? $_POST['projet_id'] : null;
         $date = isset($_POST['date']) ? $_POST['date'] : null;
         $time = isset($_POST['time']) ? $_POST['time'] : null;
 
+        if (!$projet_id || !$date || !$time) {
+            $error = "Tous les champs sont obligatoires.";
+
+            include 'config.php';
+            $view = $root . '/app/view/fragment/error.php';
+            require($view);
+
+            return;
+        }
+
         $creneau_datetime = $date . " " . $time;
-
-        ModelExaminateur::addCreneau($examinateur_id, $projet_id, $creneau_datetime);
-
-        $listeCreneaux = ModelExaminateur::getCreneauxPourProjet($examinateur_id, $projet_id);
+        ModelExaminateur::addCreneau($projet_id, $creneau_datetime);
+        $listeCreneaux = ModelExaminateur::getCreneauxPourProjet($projet_id);
 
         include 'config.php';
         $view = $root . '/app/view/examinateur/listeCreneauxPourProjet.php';
@@ -95,10 +87,7 @@ class ControllerExaminateur
 
     public static function addManyCreneauxFormExaminateur()
     {
-        if (session_status() === PHP_SESSION_NONE) session_start();
-
-        $examinateur_id = $_SESSION['user_id'];
-        $listeProjets = ModelExaminateur::getProjets($examinateur_id);
+        $listeProjets = ModelExaminateur::getProjets();
 
         include 'config.php';
         $view = $root . '/app/view/examinateur/addManyCreneauxForm.php';
@@ -107,9 +96,6 @@ class ControllerExaminateur
 
     public static function addManyCreneauxExaminateur()
     {
-        if (session_status() === PHP_SESSION_NONE) session_start();
-
-        $examinateur_id = $_SESSION['user_id'];
         $projet_id = isset($_POST['projet_id']) ? $_POST['projet_id'] : null;
         $date = isset($_POST['date']) ? $_POST['date'] : null;
         $time = isset($_POST['time']) ? $_POST['time'] : null;
@@ -121,14 +107,13 @@ class ControllerExaminateur
             include 'config.php';
             $view = $root . '/app/view/fragment/error.php';
             require($view);
+
             return;
         }
 
         $start_datetime = $date . " " . $time;
-
-        ModelExaminateur::addManyCreneaux($examinateur_id, $projet_id, $start_datetime, $nb_creneaux);
-
-        $listeCreneaux = ModelExaminateur::getCreneauxPourProjet($examinateur_id, $projet_id);
+        ModelExaminateur::addManyCreneaux($projet_id, $start_datetime, $nb_creneaux);
+        $listeCreneaux = ModelExaminateur::getCreneauxPourProjet($projet_id);
 
         include 'config.php';
         $view = $root . '/app/view/examinateur/listeCreneauxPourProjet.php';

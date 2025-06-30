@@ -5,9 +5,7 @@ require '../controller/ControllerEtudiant.php';
 require '../controller/ControllerResponsable.php';
 require '../controller/ControllerExaminateur.php';
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+if (session_status() === PHP_SESSION_NONE) session_start();
 
 $query_string = $_SERVER['QUERY_STRING'];
 
@@ -30,9 +28,9 @@ switch ($action) {
         ControllerConnexion::$action();
         break;
 
-    case "listeRDV":
-    case "prendreRDVForm":
-    case "prendreRDVSubmit":
+    case "listeRDVEtudiant":
+    case "prendreRDVFormEtudiant":
+    case "prendreRDVEtudiant":
         ControllerEtudiant::$action();
         break;
 

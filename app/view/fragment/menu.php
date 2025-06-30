@@ -37,7 +37,7 @@
                                         <li><a class="dropdown-item" href="router.php?action=listeCreneauxExaminateur">Liste complète de mes créneaux</a></li>
                                         <li><a class="dropdown-item" href="router.php?action=selectProjetFormExaminateur">Liste de mes créneaux pour un projet</a></li>
                                         <li><a class="dropdown-item" href="router.php?action=addCreneauFormExaminateur">Ajouter un créneau à un projet</a></li>
-                                        <li><a class="dropdown-item" href="#">Ajouter des créneaux consécutifs</a></li>
+                                        <li><a class="dropdown-item" href="router.php?action=addManyCreneauxFormExaminateur">Ajouter des créneaux consécutifs</a></li>
                                     </ul>
                                 </li>
                                 ';
@@ -47,8 +47,8 @@
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Étudiant</a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="router.php?action=listeRDV">Liste des RDV</a></li>
-                                        <li><a class="dropdown-item" href="router.php?action=prendreRDVForm">Prendre un RDV pour un projet</a></li>
+                                        <li><a class="dropdown-item" href="router.php?action=listeRDVEtudiant">Liste des RDV</a></li>
+                                        <li><a class="dropdown-item" href="router.php?action=prendreRDVFormEtudiant">Prendre un RDV pour un projet</a></li>
                                     </ul>
                                 </li>
                                 ';

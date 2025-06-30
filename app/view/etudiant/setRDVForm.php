@@ -1,12 +1,9 @@
 <?php
 require($root . '/app/view/fragment/head.html');
-?>
-
-<?php
 include $root . '/app/view/fragment/menu.php';
 ?>
 
-<div class="container mt-5">
+<div class="container mt-4">
     <div class="card shadow">
         <div class="card-header bg-success text-white">
             <h4 class="mb-0">Modifier un rendez-vous</h4>
@@ -17,16 +14,16 @@ include $root . '/app/view/fragment/menu.php';
                     Aucun créneau disponible pour vos projets.
                 </div>
             <?php else: ?>
-                <form method="post" action="router.php?action=prendreRDVSubmit">
+                <form method="post" action="router.php?action=prendreRDVEtudiant">
                     <div class="mb-3">
                         <label for="creneauSelect" class="form-label">Choisissez un créneau disponible</label>
                         <select class="form-select" id="creneauSelect" name="creneau_id" required>
                             <option disabled selected>-- Sélectionner un créneau --</option>
                             <?php foreach ($creneaux as $creneau): ?>
-                                <option value="<?= htmlspecialchars($creneau['creneau_id']) ?>">
-                                    <?= htmlspecialchars($creneau['label']) ?> |
-                                    <?= htmlspecialchars($creneau['creneau']) ?> |
-                                    Examinateur: <?= htmlspecialchars($creneau['nom'] . ' ' . $creneau['prenom']) ?>
+                                <option value="<?php echo $creneau['creneau_id']; ?>">
+                                    <?php echo $creneau['label']; ?> |
+                                    <?php echo $creneau['creneau']; ?> |
+                                    Examinateur: <?php echo $creneau['nom'] . ' ' . $creneau['prenom']; ?>
                                 </option>
                             <?php endforeach; ?>
                         </select>

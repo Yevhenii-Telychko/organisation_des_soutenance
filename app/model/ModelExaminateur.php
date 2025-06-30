@@ -1,11 +1,13 @@
 <?php
-
 require_once 'Model.php';
 
 class ModelExaminateur
 {
-    public static function getProjets($examinateur_id)
+    public static function getProjets()
     {
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        $examinateur_id = $_SESSION['user_id'];
+
         $db = Model::getInstance();
         $stmt = $db->prepare("
             SELECT DISTINCT
@@ -25,8 +27,11 @@ class ModelExaminateur
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getCreneaux($examinateur_id)
+    public static function getCreneaux()
     {
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        $examinateur_id = $_SESSION['user_id'];
+
         $db = Model::getInstance();
         $stmt = $db->prepare("
             SELECT * FROM infocreneaux
@@ -38,8 +43,11 @@ class ModelExaminateur
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getCreneauxPourProjet($examinateur_id, $projet_id)
+    public static function getCreneauxPourProjet($projet_id)
     {
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        $examinateur_id = $_SESSION['user_id'];
+
         $db = Model::getInstance();
         $stmt = $db->prepare("
             SELECT *
@@ -55,10 +63,12 @@ class ModelExaminateur
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function addCreneau($examinateur_id, $projet_id, $datime)
+    public static function addCreneau($projet_id, $datime)
     {
-        $db = Model::getInstance();
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        $examinateur_id = $_SESSION['user_id'];
 
+        $db = Model::getInstance();
         $stmt = $db->query("SELECT MAX(id) FROM creneau");
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $id = $result["MAX(id)"] + 1;
@@ -74,13 +84,15 @@ class ModelExaminateur
             'datetime' => $datime
         ]);
 
-        return $stmt->rowCount() > 0;
+        return $stmt->rowCount();
     }
 
-    public static function addManyCreneaux($examinateur_id, $projet_id, $start_datetime, $nombre_creneaux)
+    public static function addManyCreneaux($projet_id, $start_datetime, $nb_creneaux)
     {
-        $db = Model::getInstance();
+        if (session_status() === PHP_SESSION_NONE) session_start();
+        $examinateur_id = $_SESSION['user_id'];
 
+        $db = Model::getInstance();
         $stmt = $db->query("SELECT MAX(id) FROM creneau");
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         $id = $result["MAX(id)"] + 1;
@@ -92,10 +104,10 @@ class ModelExaminateur
 
         $datetime = new DateTime($start_datetime);
 
-        for ($i = 0; $i < $nombre_creneaux; $i++) {
-            $current_id++;
+        for ($i = 0; $i < $nb_creneaux; $i++) {
+            $id++;
             $stmt->execute([
-                'id' => $current_id,
+                'id' => $id,
                 'projet_id' => $projet_id,
                 'examinateur_id' => $examinateur_id,
                 'datetime' => $datetime->format('Y-m-d H:i:s')
