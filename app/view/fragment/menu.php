@@ -33,7 +33,6 @@
                                     <li><a class="dropdown-item" href="router.php?controller=responsable&action=selectProjetFormResponsable">Liste des examinateur d\'un projet</a></li>
                                     <hr/>
                                     <li><a class="dropdown-item" href="router.php?controller=responsable&action=listeRDVProjetFormResponsable">Planning d\'un projet</a></li>
-                                    <li><a class="dropdown-item" href="router.php?controller=responsable&action=dashboard">Dashboard</a></li>
                                 </ul>
                             </li>
                             ';
