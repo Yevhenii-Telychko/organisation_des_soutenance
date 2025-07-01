@@ -29,5 +29,5 @@ if (class_exists($controllerClass)) {
         echo "<p>Méthode <b>$action</b> inexistante dans $controllerClass.</p>";
     }
 } else {
-    echo "<p>Contrôleur <b>$controllerClass</b> introuvable.</p>";
+    echo "<p>Controller <b>$controllerClass</b> introuvable.</p>";
 }
