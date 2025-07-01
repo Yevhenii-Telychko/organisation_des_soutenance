@@ -27,7 +27,7 @@ class ControllerEtudiant
         $id_creneau = isset($_POST['creneau_id']) ? $_POST['creneau_id'] : null;
 
         if ($id_creneau && ModelEtudiant::setRDV($id_creneau)) {
-            header('Location: router.php?action=listeRDVEtudiant');
+            header('Location: router.php?controller=etudiant&action=listeRDVEtudiant');
             exit();
         } else {
             $error = "Impossible de réserver ce créneau.";

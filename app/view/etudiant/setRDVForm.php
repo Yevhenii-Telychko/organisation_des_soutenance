@@ -16,7 +16,7 @@ include $root . '/app/view/fragment/menu.php';
             Aucun créneau disponible pour vos projets.
         </div>
     <?php else: ?>
-        <form method="post" action="router.php?action=prendreRDVEtudiant" class="card p-4 shadow" style="max-width: 500px;">
+        <form method="post" action="router.php?controller=etudiant&action=prendreRDVEtudiant" class="card p-4 shadow" style="max-width: 500px;">
             <div class="mb-3">
                 <label for="creneauSelect" class="form-label">Choisissez un créneau disponible</label>
                 <select class="form-select" id="creneauSelect" name="creneau_id" required>
@@ -35,6 +35,4 @@ include $root . '/app/view/fragment/menu.php';
     <?php endif; ?>
 </div>
 
-<?php
-include $root . '/app/view/fragment/footer.html';
-?>
+<?php include $root . '/app/view/fragment/footer.html'; ?>
